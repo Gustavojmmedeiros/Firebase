@@ -25,7 +25,7 @@ export default class Login extends Component {
         window.location.href = "./principal";
     })
     .catch((erro) => {
-        alert(erro);
+        alert("Erro: "+ erro);
     })
     }
 
