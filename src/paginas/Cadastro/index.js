@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../firebaseConfig';
-import { getFirestore, collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { getFirestore, collection, setDoc, doc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 
 
 export default class Cadastro extends Component {
@@ -16,30 +17,33 @@ export default class Cadastro extends Component {
         }
 
         this.db = getFirestore();
-        // this.auth = getAuth();
+        this.auth = getAuth();
+        this.cadastrar = this.cadastrar.bind(this);
     }
 
 
-    gravar = async () => {
+    cadastrar = async () => {
         const { email, senha, nome, sobrenome, data } = this.state;
-    
         try {
-          const dados = await addDoc(collection(this.db, "teste"), {
-            email: email,
-            senha: senha,
-            nome: nome,
-            sobrenome: sobrenome,
-            data: data
-        });
-          this.setState({ email: '', senha: '',  nome: '', sobrenome:'', data: '' });
-          alert("Usuário salvo no database.")
-          
+          createUserWithEmailAndPassword(this.auth, email, senha)
+          .then(async (retorno) => {
+            const dados = await setDoc(doc(collection(this.db, "segunda"), retorno.user.uid), {
+                email: email,
+                senha: senha,
+                nome: nome,
+                sobrenome: sobrenome,
+                data: data
+              });
+            //   ---------------- //
+              console.log(dados)
+            });
+          alert("Cadastro realizado");
+    
         } catch (error) {
-            console.log(error)
-            alert("Falha ao salvar dados");
+            console.log(error);
+            alert("Erro: " + error);
         }
-    }
-
+      }
 
     render() {
         const { email, senha, nome, sobrenome, data } = this.state;
@@ -57,7 +61,7 @@ export default class Cadastro extends Component {
 
                 <input type="date" placeholder="Data" value={data} onChange={(e) => this.setState({data: e.target.value})} />
 
-                <button onClick={this.gravar}>Cadastrar no Firebase</button>
+                <button onClick={this.cadastrar}>Cadastrar no Firebase</button>
             </div>
         )
     }
