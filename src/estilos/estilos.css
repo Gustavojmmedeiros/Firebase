@@ -45,6 +45,16 @@ label {
     margin: 2px;
 }
 
+.p-principal {
+    align-self: center;
+    background-color: #82a0d4;
+    border-radius: 5px;
+    font-size: 1.2em;
+    height: 35px;
+    margin: 5px;
+    width: 30%;
+}
+
 
 .botao-cadastro {
     height: 40px;

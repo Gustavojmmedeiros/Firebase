@@ -44,9 +44,9 @@ export default class Cadastro extends Component {
             <div>
                 <h1>Página Principal</h1>
 
-                <p>Nome: {this.state.nome}</p>
-                <p>Sobrenome: {this.state.sobrenome}</p>
-                <p>Data de nascimento: {this.state.nascimento}</p>
+                <p className="p-principal">Nome: {this.state.nome}</p>
+                <p className="p-principal">Sobrenome: {this.state.sobrenome}</p>
+                <p className="p-principal">Data de nascimento: {this.state.nascimento}</p>
             </div>
         )
     }
