@@ -13,7 +13,7 @@ export default class Cadastro extends Component {
             senha: '',
             nome: '',
             sobrenome: '',
-            data: ''
+            nascimento: ''
         }
 
         this.db = getFirestore();
@@ -23,7 +23,7 @@ export default class Cadastro extends Component {
 
 
     cadastrar = async () => {
-        const { email, senha, nome, sobrenome, data } = this.state;
+        const { email, senha, nome, sobrenome, nascimento } = this.state;
         try {
           createUserWithEmailAndPassword(this.auth, email, senha)
           .then(async (retorno) => {
@@ -32,21 +32,18 @@ export default class Cadastro extends Component {
                 senha: senha,
                 nome: nome,
                 sobrenome: sobrenome,
-                data: data
+                nascimento: nascimento
               });
-            //   ---------------- //
-              console.log(dados)
             });
           alert("Cadastro realizado");
     
-        } catch (error) {
-            console.log(error);
-            alert("Erro: " + error);
+        } catch (erro) {
+            alert("Erro: " + erro);
         }
       }
 
     render() {
-        const { email, senha, nome, sobrenome, data } = this.state;
+        const { email, senha, nome, sobrenome, nascimento } = this.state;
 
         return (
             <div>
@@ -59,7 +56,7 @@ export default class Cadastro extends Component {
 
                 <input type="name" placeholder="Sobrenome" value={sobrenome} onChange={(e) => this.setState({sobrenome: e.target.value})} />
 
-                <input type="date" placeholder="Data" value={data} onChange={(e) => this.setState({data: e.target.value})} />
+                <input type="date" placeholder="Data" value={nascimento} onChange={(e) => this.setState({nascimento: e.target.value})} />
 
                 <button onClick={this.cadastrar}>Cadastrar no Firebase</button>
             </div>
